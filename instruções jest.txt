@@ -1,0 +1,112 @@
+Configuração do projeto
+Vamos utilizar JavaScript puro e uma biblioteca chamada jest para os testes unitários.
+
+Nossa primeira missão vai ser construir uma calculadora com as operações de somar, subtrair, multiplicar e dividir.
+
+Crie uma pasta para o projeto, em algum local de sua preferência.
+
+Abra-a em algum terminal e inicialize o projeto NodeJS, com o comando a seguir, gerando o arquivo package.json do novo projeto.
+
+
+
+npm init -y
+Agora, precisamos instalar a biblioteca jest. Para isso, digite o seguinte comando:
+
+npm i jest --save-dev
+
+
+
+O argumento --save-dev é para deixar claro que essa biblioteca não faz parte do seu código de produção e será utilizada somente nos ambientes de desenvolvimento. Assim, seu artefato final fica mais leve, pois qualquer biblioteca instalada com esse argumento será removida.
+
+Agora, precisamos configurar um comando que, quando executado, vai rodar todos os seus testes unitários e verificar se há algum erro com a sua lógica.
+
+Para isso, no arquivo package.json, procure pelo objeto scripts e substitua o valor da chave test para jest, da seguinte forma:
+
+
+
+"scripts": {
+
+
+    "test": "jest"
+
+
+},
+
+
+Por padrão, o Jest executa os testes dentro da pasta __tests__.
+
+Crie essa pasta na raiz do seu projeto.
+
+Construindo nossos primeiros testes unitários
+Em um novo arquivo chamado calculator.js, vamos construir a função de soma de dois valores. Para facilitar este exemplo, consideraremos que a calculadora aceita somente números inteiros.
+
+
+
+export function sum(a, b) {
+
+
+    return a + b;
+
+
+}
+
+
+Primeiro caso de teste
+Agora, vamos construir um teste unitário para essa função.
+
+Um ponto importante é a nomenclatura desses testes: por eles serem uma documentação viva da sua aplicação, ter um padrão de nomenclatura claro é muito importante para entendimento futuro tanto seu quanto do seu time.
+
+Crie um arquivo, dentro da pasta __tests__, chamado calculator.spec.js.
+
+Dentro dele, vamos criar nosso primeiro teste:
+
+
+
+import { sum } from '../calculator.js';
+ 
+describe("calculator sum", () => {
+  test("it should sum two positive values", () => {
+    const result = sum(2, 2);
+ 
+    expect(result).toBe(4);
+  });
+});
+
+
+Para melhor organização dos nossos testes, utilizamos duas palavras-chave, describe e test.
+
+describe serve para mostrar qual função estamos testando naquele conjunto de testes;
+
+test serve para explicitar de fato o que está sendo testado e o comportamento esperado.
+
+Agora, executando o comando npm test, vamos verificar que nosso teste passou e podemos seguir em frente.
+
+Erro ao executar o Jest
+Em alguns casos, é possível aparecer o seguinte erro:
+
+
+
+ Jest encountered an unexpected token
+ 
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+ 
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+    ...
+
+Se estiver acontecendo com você, siga o seguinte tutorial para resolvê-lo:
+
+https://newbedev.com/jest-syntaxerror-cannot-use-import-statement-outside-a-module
+
+Segundo caso de teste
+Agora, vamos criar um segundo caso de teste somando um número negativo.
+
+É muito importante pensarmos em cenários diferentes do padrão, deixando nossa aplicação ainda mais robusta a nível de testes automatizados.
+
+Dentro do mesmo describe e, logo abaixo do primeiro fechamento de chaves e parênteses }), vamos escrever o segundo teste:
+
+test("it should sum numbers with a negative value", () => {
+  const result = sum(2, -2);
+  
+  expect(result).toBe(0);
+});
+npm install --save-dev babel-jest
