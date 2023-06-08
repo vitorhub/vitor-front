@@ -1,0 +1,34 @@
+npm i jest -D
+https://www.youtube.com/watch?v=edXudaVB0Bg
+npx jest --init
+npm i ts-node -D
+npm i @swc/core @swc/jest -D
+
+  transform: {
+    "^.+\\.(t|j)sx?$": [
+      "@swc/jest",
+      {
+        jsc: {
+          parser: {
+            sintax: "typescript",
+            tsx: true,
+            decorators: true,
+          },
+          keepClassNames: true,
+          transform: {
+            legacyDecorator: true,
+            decoratorMetadata: true,
+            react: {
+              runtime: "automatic"
+            },
+          },
+        },
+        module: {
+          type: 'es6',
+          noInterop: false,
+        },
+      },
+    ],
+  },
+
+npm i @testing-library/react @testing-library/test-dom @testing-library/user-event -D
