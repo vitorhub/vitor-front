@@ -4,26 +4,7 @@ import React, { Component, useState } from "react";
 import axios, { isCancel, AxiosError } from "axios";
 
 const ComponenteB = () => {
-  let url = "http://localhost:3001/user/auth/login";
-
-  const [tokenId, setTokenId] = useState({});
-  /* axios.get(url)
-  .then(function (response) {
-    // handle success
-    console.log(response);
-    // JSON.stringfy(data)
-  }) */
-  function login() {
-    axios
-      .post(url, {
-        email: "joaofalcao.35@outlook.com",
-        password: "123456",
-      })
-      .then((response) => {
-        setTokenId({ token: response.data.token, id: response.data.id });
-      })
-      .catch((error) => console.log(error));
-  }
+  
 
   const [stateCria, setStateCria] = useState({
     name: "",
@@ -31,9 +12,8 @@ const ComponenteB = () => {
     password: "",
     repeatpassword: "",
   });
-  // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-  function cria() {
+  function cria(e) {
+    e.preventDefault();
     axios
       .post("http://localhost:3001/user/", stateCria)
       .then((response) => {
@@ -44,20 +24,7 @@ const ComponenteB = () => {
 
   return (
     <>
-      <div className="App">
-        <button
-          onClick={() => {
-            login();
-          }}
-        >
-          {" "}
-          Retorna id e token{" "}
-        </button>
-        <p> {tokenId.token}</p> <br />
-        <p>{tokenId.id}</p> <br />
-      </div>
-      <button onClick={() => cria()}>cria usuario</button>
-      <form onSubmit={()=>cria()}>
+      <form onSubmit={cria}>
         <label htmlFor="name">name</label>
         <input
           type="text"
@@ -97,7 +64,7 @@ const ComponenteB = () => {
       {stateCria.name} <br />
       {stateCria.email} <br />
       {stateCria.password} <br />
-      {stateCria.repeatpassword}
+      {stateCria.repeatpassword} <br />
     </>
   );
 };
