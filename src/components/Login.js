@@ -13,16 +13,18 @@ const Login = () => {
           },
         })
         .then((response) => console.log(response))
-        .catch((error) => console.log(error));
+        .catch((error) => console.log(error.response.data));
     }
   };
   // Sessão privada valida a partir do id e do token com validade 60 segundos !!!!!!!!!!!!!!!!!!
 
   // Delete a partir do email e senha
   const deletarUsuarioInformado = ()=>{
-      axios.delete("http://localhost:3001/user/deletar",emailPass)
+    if(tokenId.id){
+      axios.delete(`http://localhost:3001/user/deletar/${tokenId.id}`,emailPass)
       .then((response)=> console.log(response))
-      .catch((error)=> console.log(error))
+      .catch((error)=> console.log(error.response.data))
+    }
   }
 
   // Realiza login a partir do email e senha corretos %%%%%%%%%%%%%%%%%%%%%%
