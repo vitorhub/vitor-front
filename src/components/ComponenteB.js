@@ -4,7 +4,7 @@ import React, { Component, useState } from "react";
 import axios, { isCancel, AxiosError } from "axios";
 
 const ComponenteB = () => {
-  
+  const [advertencia1, setAdvertencia1] = useState();
 
   const [stateCria, setStateCria] = useState({
     name: "",
@@ -19,11 +19,13 @@ const ComponenteB = () => {
       .then((response) => {
         console.log(response);
       })
-      .catch((error) => console.log(error.response.data));
+      .catch((error) => setAdvertencia1(error.response.data.msg));
   }
 
   return (
     <>
+      <div style={{backgroundColor: "aqua"}}>
+        <h1> Cria usuario </h1>
       <form onSubmit={cria}>
         <label htmlFor="name">name</label>
         <input
@@ -65,6 +67,8 @@ const ComponenteB = () => {
       {stateCria.email} <br />
       {stateCria.password} <br />
       {stateCria.repeatpassword} <br />
+      <small style={{backgroundColor: "red", color: "#FFF"}}> {advertencia1} </small>
+      </div>
     </>
   );
 };
